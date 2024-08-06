@@ -1,0 +1,135 @@
+body {
+    font-family: Verdana;
+    background-color: #51c5ff;
+    background-image: url('images/blueflowers.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.amatic-sc-bold {
+    font-family: "Amatic SC", sans-serif;
+    font-weight: 700;
+    font-size: 4.5rem;
+    font-style: normal;
+}
+
+form {
+    display: flex;
+    margin-bottom: 20px;
+    width: 100%;
+    justify-content: center; /* Center form elements */
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px;
+    background: #2773c9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8bcbff;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    width: 100%; /* Ensure li takes full width of the container */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+li .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+li .checkbox-wrapper input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+li .checkbox-wrapper .custom-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    display: inline-block;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+li .checkbox-wrapper input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+li.completed .checkbox-wrapper .custom-checkbox {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+li .checkbox-wrapper .custom-checkbox:hover {
+    background-color: #d1ffa9;
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.delete {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Add margin to separate from text */
+}
+
+.delete:hover {
+    background: #cb7079;
+}
