@@ -1,119 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const taskForm = document.getElementById('task-form');
-    const taskInput = document.getElementById('task-input');
-    const taskList = document.getElementById('task-list');
+function calculateBMI() {
+  let weight = parseFloat(document.getElementById("weight").value);
+  let height = parseFloat(document.getElementById("height").value);
+ 
+  const weightUnit = document.getElementById("weight-unit").value;
+  const heightUnit = document.getElementById("height-unit").value;
+  
+  if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+      document.getElementById("result").innerText = "Please enter valid positive numbers for weight and height!";
+      document.getElementById('resultPopup').style.display = 'block';
+      return;
+  }
 
-    loadTasks();
+  if (weightUnit === "lb") {
+      weight = convertPoundsToKg(weight);
+  }
 
-    taskForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        addTask(taskInput.value);
-        taskInput.value = '';
-    });
+  if (heightUnit === "feet") {
+      height = convertFeetToMeters(height);
+  } else if (heightUnit === "cm") {
+      height = convertCmToMeters(height); 
+  }
 
-    taskList.addEventListener('change', function(e) {
-        if (e.target.type === 'checkbox') {
-            toggleTask(e.target.parentElement.parentElement);
-        }
-    });
+  const bmi = (weight / (height * height)).toFixed(2);
 
-    taskList.addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete')) {
-            deleteTask(e.target.parentElement);
-        }
-    });
-});
+  let bmiStatus = "";
+  if (bmi < 18.5) {
+      bmiStatus = "Underweight";
+  } else if (bmi >= 18.5 && bmi <= 24.9) {
+      bmiStatus = "Normal weight";
+  } else if (bmi >= 25 && bmi <= 29.9) {
+      bmiStatus = "Overweight";
+  } else {
+      bmiStatus = "Obesity";
+  }
 
-function addTask(task) {
-    const li = document.createElement('li');
-
-    const checkboxWrapper = document.createElement('div');
-    checkboxWrapper.className = 'checkbox-wrapper';
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'checkbox';
-    checkboxWrapper.appendChild(checkbox);
-    
-    const customCheckbox = document.createElement('span');
-    customCheckbox.className = 'custom-checkbox';
-    checkboxWrapper.appendChild(customCheckbox);
-    
-    li.appendChild(checkboxWrapper);
-    li.appendChild(document.createTextNode(task));
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.appendChild(document.createTextNode('X'));
-    deleteBtn.className = 'delete';
-    li.appendChild(deleteBtn);
-
-    document.getElementById('task-list').appendChild(li);
-    saveTask(task);
+  document.getElementById("result").innerText = `Your BMI is ${bmi}. You are ${bmiStatus}.`;
+  document.getElementById('resultPopup').style.display = 'block';
 }
 
-function deleteTask(taskItem) {
-    taskItem.remove();
-    removeTaskFromStorage(taskItem.textContent.slice(0, -1));
+function convertPoundsToKg(pounds) {
+  return pounds * 0.453592; 
 }
 
-function toggleTask(taskItem) {
-    taskItem.classList.toggle('completed');
-    updateTaskInStorage(taskItem.textContent.slice(0, -1), taskItem.classList.contains('completed'));
+function convertFeetToMeters(feet) {
+  return feet * 0.3048; 
 }
 
-function saveTask(task) {
-    let tasks = getTasksFromStorage();
-    tasks.push({ task, completed: false });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+function convertCmToMeters(cm) {
+  return cm / 100; 
 }
 
-function getTasksFromStorage() {
-    let tasks = localStorage.getItem('tasks');
-    return tasks ? JSON.parse(tasks) : [];
-}
-
-function loadTasks() {
-    let tasks = getTasksFromStorage();
-    tasks.forEach(function(taskObj) {
-        const li = document.createElement('li');
-        
-        const checkboxWrapper = document.createElement('div');
-        checkboxWrapper.className = 'checkbox-wrapper';
-        
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.className = 'checkbox';
-        checkbox.checked = taskObj.completed;
-        checkboxWrapper.appendChild(checkbox);
-        
-        const customCheckbox = document.createElement('span');
-        customCheckbox.className = 'custom-checkbox';
-        checkboxWrapper.appendChild(customCheckbox);
-        
-        li.appendChild(checkboxWrapper);
-        li.appendChild(document.createTextNode(taskObj.task));
-        
-        if (taskObj.completed) {
-            li.classList.add('completed');
-        }
-        
-        const deleteBtn = document.createElement('button');
-        deleteBtn.appendChild(document.createTextNode('X'));
-        deleteBtn.className = 'delete';
-        li.appendChild(deleteBtn);
-        
-        document.getElementById('task-list').appendChild(li);
-    });
-}
-
-function removeTaskFromStorage(task) {
-    let tasks = getTasksFromStorage();
-    tasks = tasks.filter(taskObj => taskObj.task !== task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function updateTaskInStorage(task, completed) {
-    let tasks = getTasksFromStorage();
-    tasks = tasks.map(taskObj => taskObj.task === task ? { task, completed } : taskObj);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+function closePopup() {
+  document.getElementById('resultPopup').style.display = 'none';
 }
