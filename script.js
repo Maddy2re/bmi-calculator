@@ -27,7 +27,7 @@ function calculateBMI() {
   if (bmi < 18.5) {
       bmiStatus = "Underweight";
   } else if (bmi >= 18.5 && bmi <= 24.9) {
-      bmiStatus = "Average (Normal Weight)";
+      bmiStatus = "Average (i.e You are of Normal Weight)";
   } else if (bmi >= 25 && bmi <= 29.9) {
       bmiStatus = "Overweight";
   } else {
