@@ -3,46 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .completed {
-            text-decoration: line-through;
-        }
-    </style>
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2 class="amatic-sc-bold">To Do List</h2>
-        <form id="task-form">
-            <input type="text" id="task-input" placeholder="Add a new task" required>
-            <button type="submit">Add Task</button>
-        </form>
-        <ul id="task-list"></ul>
+    <div class="container" id="bmiCalculator">
+        <h1>BMI Calculator</h1>
+        <div class="input-group">
+            <label for="weight">Weight:</label>
+          <div class="input-wrapper">
+            <input type="number" id="weight" placeholder="Enter your weight">
+            <select id="weight-unit">
+                <option value="kg">kg</option>
+                <option value="lb">lb</option>
+            </select>
+        </div>
     </div>
+    
+       
+    <div class="input-group">
+            <label for="height">Height:</label>
+            <div class="input-wrapper">
+            <input type="number" id="height" placeholder="Enter your height">
+            <select id="height-unit">
+                <option value="cm">cm</option>
+                <option value="meters">m</option>
+                <option value="feet">ft</option>
+            </select>
+        </div>
+ 
+     <button onclick="calculateBMI()">Calculate BMI</button>
+    
+    </div>
+    </div>
+
+    <div id="resultPopup" class="result"> 
+            <div class = "resultContent">
+                <span class="close" onclick="closePopup ()">&times;</span>
+                <p id ="result"></p>
+            </div>
+    </div>
+
+    <div class="container" id="bmiInfo">
+        <p>A <b>(Body Mass Index) calculator</b> is a tool used to assess whether an individual’s body weight falls within a healthy range based on their height and weight. </p>
+        <p>It is widely used by healthcare professionals and individuals to determine weight categories that may indicate health risks.</p>
+        <h3>Categories:</h3>
+        <p><b>Underweight</b>: BMI less than 18.5. This can signal malnutrition, an eating disorder, or other underlying health issues.</p>
+        <p><b>Normal weight</b>: BMI 18.5–24.9. This indicates a healthy balance of weight and height.</p>
+        <p><b>Overweight</b> BMI 25–29.9. This can signal overeating, a hormonal imbalance, a metabolic disorder, or other underlying health issues. Excess weight like this may lead to future health problems.</p>
+        <p><b>Obesity</b> BMI 30 or above. This signals severe overeating. This is linked to a higher risk of conditions like heart disease, diabetes, and stroke.</p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
